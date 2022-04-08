@@ -4,18 +4,10 @@ library(gmailr) #send email using gmail RESTful API. https://github.com/r-lib/gm
 
 gm_auth()
 
-#TODO get a list of all the images uploaded to the specific google drive along with the uploader email
-#TODO get a list of the people participating based on unique uploaders to a specific google drive
+#TODO get a list of the people who want the survey link
   participants_uploaded <- c("") #ideally as a list c("email1@gg","email2@gg")
-#TODO add any extras that are participating but didn't upload
-  extra_participants <- c("") #Email addresses added last minute ideally as a list c("email3@gg","email4@gg")
-#TODO for each person participating based on upload, make a sequence where they are ordered in a loop. Or randomize sequence.
-#TODO for each person participating based on upload, select their assignment based on who is after them in loop sequence. Last person gets first person's photo.
-#TODO for each extra person assign them a random photo that hadn't yet been selected if available. If not then assign any random photo
 
-#TODO for each person participating, send an email with their assigned photo.
-
-# New token - invalid credentials?
+# New token
 gm_auth_configure(path="brunch_roulette_client.json")
 gm_auth()  
   

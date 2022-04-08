@@ -5,9 +5,7 @@
 .Ruserdata
 .DS_Store
 *.Rproj
-
-# session data files
-.RData
+README.md
 
 # oath2 creds for gmail + drive
 *.json

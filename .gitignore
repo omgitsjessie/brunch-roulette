@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+# Rstudio files
+.Rproj.user
+.Rhistory
+.Ruserdata
+.DS_Store
+*.Rproj
+
+# session data files
+.RData
+
+# oath2 creds for gmail + drive
+*.json
+=======
 # History files
 .Rhistory
 .Rapp.history
@@ -37,3 +51,4 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+>>>>>>> ebfc0fc85577fbb75afb3803da7045e5ac5e07e3

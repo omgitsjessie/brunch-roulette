@@ -1,0 +1,12 @@
+# Rstudio files
+.Rproj.user
+.Rhistory
+.Ruserdata
+.DS_Store
+*.Rproj
+
+# session data files
+.RData
+
+# oath2 creds for gmail + drive
+*.json

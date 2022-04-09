@@ -40,7 +40,7 @@ same amount of prep time (none!) in order to create their culinary masterpiece.
 * the theme of this roulette round
 
 
-![honestly I think the roulette one is better](images/starry_night_km.png | width=30%) ![](images/starry_night_orig.png | width=30%)
+![honestly I think the roulette one is better](images/starry_night_km.png) ![](images/starry_night_orig.png)
 
 
 
@@ -50,7 +50,7 @@ update in the *_begin.r file. Also in that file, set up the kickoff timing, and 
 
 
 
-![chicken and waffles is its own reward](images/chicken_and_waffles_jm.png | width=30%) ![](images/chicken_and_waffles_orig.png | width=30%)
+![chicken and waffles is its own reward](images/chicken_and_waffles_jm.png) ![](images/chicken_and_waffles_orig.png)
 
 
 ![](images/cinnamon_rolls_orig.png) ![](images/cinnamon_rolls_md.png)

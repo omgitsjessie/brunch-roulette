@@ -13,15 +13,27 @@ gm_auth()
 #TODO get a list of all the images uploaded to the specific google drive along with the uploader email
 #TODO get a list of the people participating based on unique uploaders to a specific google drive
 participants_uploaded <- c("") #ideally as a list c("email1@gg","email2@gg")
-#TODO add any extras that are participating but didn't upload
-extra_participants <- c("") #Email addresses added last minute ideally as a list c("email3@gg","email4@gg")
-#TODO for each person participating based on upload, make a sequence where they are ordered in a loop. Or randomize sequence.
-#TODO for each person participating based on upload, select their assignment based on who is after them in loop sequence. Last person gets first person's photo.
-#TODO for each extra person assign them a random photo that hadn't yet been selected if available. If not then assign any random photo
 
-#TODO for each person participating, send an email with their assigned photo.
 
-# New token - invalid credentials?
+# manually add any extras that are participating but didn't upload - last minute folks
+# added here as a list c("email3@gg","email4@gg")
+extra_participants <- c("") 
+
+# total set of participants: the people who have uploaded content and last minute adds
+# randomize the participants first, the others don't matter since they're not supplying content it'll be random anyway
+brunch_participants <- paste(c(participants_uploaded, extra_participants))
+
+# Assign a random order to the participant list. Image assignment:
+#   Each person will be assigned an image supplied by the next person. 
+#   If the next person did not supply an image, they will receive an unassigned image from someone who submitted more than one
+#     If there are no extra images, they'll receive a randomly assigned image
+
+
+
+# TODO for each person participating, send an email with their assigned photo, 
+# and a link to submit their final images.
+
+# replace with your token name / path
 gm_auth_configure(path="brunch_roulette_client.json")
 gm_auth()  
 

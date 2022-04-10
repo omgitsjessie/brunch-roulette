@@ -9,6 +9,8 @@ gm_auth()
 
 # New token
 gm_auth_configure(path="brunch_roulette_client.json")
+
+#configure this interactively
 gm_auth()  
   
 #Individual email info:
@@ -17,13 +19,15 @@ email_source <- 'brunchroulette@gmail.com'
 email_target <- c('jessie.mueller@gmail.com', 
                  'brunchroulette@gmail.com')
 brunch_category_name <- 'Pancake Masterpieces'
-attachment_path <- "test for now"
+attachment_path_submissions <- "https://drive.google.com/drive/folders/0B75tBjB0bN9_fjJzQWdnU2Zqc0xTVVVKdUctRFJ3ZnhXLVpack9wQ3ppeEo3WUVib2YtT2s?resourcekey=0-wSTXVMTzQsDoNldCTvyg4A"
 form_link <- "https://docs.google.com/forms/d/e/1FAIpQLSd6LmltiGmarGKWztKRRSyH9lTCsnS5DLs1uagUkMvpJDjEKw/viewform?usp=sf_link"
 html_body <- paste("Welcome to Brunch Roulette! The theme for this round is 
                    \'Pancake Masterpieces\', and the submission link to participate 
                    can be found at <a href=\"https://docs.google.com/forms/d/e/
                    1FAIpQLSd6LmltiGmarGKWztKRRSyH9lTCsnS5DLs1uagUkMvpJDjEKw/viewform?usp=sf_link\"
-                   > this google survey link</a>")
+                   > this google survey link</a>.")
+
+# scheduled time to kickoff the actual event
 
 brunch_roulette_email <- gm_mime() %>%
   gm_to(email_target) %>%

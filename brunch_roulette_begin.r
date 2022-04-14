@@ -1,27 +1,48 @@
 # BRUNCH ROULETTE - Parse submissions and assign images
 library(gmailr) #send email using gmail RESTful API. https://github.com/r-lib/gmailr
+library(googledrive) # check drive folders and access images / submissions
+library(dplyr) # pipe and date handling
+library(lubridate) # date handling
+library(hms) # time handling
 
-#todo replace with date + format
-time_to_begin <- ''
+email_source <- 'brunchroulette@gmail.com'
+gdrive_scope <- 'https://www.googleapis.com/auth/drive.readonly' # makes edit / delete impossible
+  # you can also use service account tokens here (see https://googledrive.tidyverse.org/reference/drive_auth.html)
 
-#todo replace with survey drive location
-drive_directory <- ''
+# out of band gdrive auth (this will authenticate in browser)
+drive_auth(email = email_source,
+           scopes = gdrive_scope)
+  # allow Tidyverse API Packages access to your specific google account in browser
+  # close page and return to R
 
+# confirm you're in the right account
+    # drive_user()
 
-gm_auth()
+# adjust directory name to whatever you're using
+gdrive_directory <- "Please upload 1-10 images for this week\'s Brunch Roulette.  (File responses)"
 
-#TODO get a list of all the images uploaded to the specific google drive along with the uploader email
-#TODO get a list of the people participating based on unique uploaders to a specific google drive
-participants_uploaded <- c("") #ideally as a list c("email1@gg","email2@gg")
+# Make a list of all the files in that directory
+uploaded_file_list <- drive_ls(gdrive_directory) %>% as.data.frame()
 
+# Build a table with the distinct set of users who have uploaded to this directory
+participants_uploaded <- data.frame(matrix(ncol=1, nrow = nrow(uploaded_file_list)))
+colnames(participants_uploaded) <- c('submission_email')
+
+for (i in 1:nrow(uploaded_file_list)) {
+  participants_uploaded[i,1] <- uploaded_file_list[['drive_resource']][[i]][['sharingUser']][['emailAddress']]
+}
+
+player_list <- unique(participants_uploaded$submission_email)
 
 # manually add any extras that are participating but didn't upload - last minute folks
 # added here as a list c("email3@gg","email4@gg")
-extra_participants <- c("") 
+extra_participants <- c("jessie.mueller@gmail.com") 
 
 # total set of participants: the people who have uploaded content and last minute adds
 # randomize the participants first, the others don't matter since they're not supplying content it'll be random anyway
-brunch_participants <- paste(c(participants_uploaded, extra_participants))
+brunch_participants <- paste(c(player_list, extra_participants))
+  #todo - handle null here if there are no extras
+
 
 # Assign a random order to the participant list. Image assignment:
 #   Each person will be assigned an image supplied by the next person. 
@@ -32,6 +53,17 @@ brunch_participants <- paste(c(participants_uploaded, extra_participants))
 
 # TODO for each person participating, send an email with their assigned photo, 
 # and a link to submit their final images.
+
+
+
+
+#todo replace with date + format
+time_to_begin <- ''
+
+#todo replace with survey drive location
+drive_directory <- ''
+
+gm_auth()
 
 # replace with your token name / path
 gm_auth_configure(path="brunch_roulette_client.json")

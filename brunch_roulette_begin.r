@@ -9,9 +9,9 @@ email_source <- 'brunchroulette@gmail.com'
 gdrive_scope <- 'https://www.googleapis.com/auth/drive.readonly' # makes edit / delete impossible
   # you can also use service account tokens here (see https://googledrive.tidyverse.org/reference/drive_auth.html)
 
-# out of band gdrive auth (this will authenticate in browser)
-drive_auth(email = email_source,
-           scopes = gdrive_scope)
+# out of band gdrive auth (this will authenticate in browser first time)
+drive_auth()
+
   # allow Tidyverse API Packages access to your specific google account in browser
   # close page and return to R
 
@@ -36,21 +36,34 @@ player_list <- unique(participants_uploaded$submission_email)
 
 # manually add any extras that are participating but didn't upload - last minute folks
 # added here as a list c("email3@gg","email4@gg")
-extra_participants <- c("jessie.mueller@gmail.com") 
+extra_participants <- c("jessie.mueller@gmail.com", "second@email")
+extra_participants <- c("") 
 
 # total set of participants: the people who have uploaded content and last minute adds
 # randomize the participants first, the others don't matter since they're not supplying content it'll be random anyway
-brunch_participants <- paste(c(player_list, extra_participants))
-  #todo - handle null here if there are no extras
+if(extra_participants == '') {
+  brunch_participants <- player_list} else {brunch_participants <- paste(c(player_list, extra_participants))} 
 
+# clean it up so you can add columns to this as a dataframe
+brunch_participants <- brunch_participants %>% as.data.frame()
+colnames(brunch_participants) <- c('participants')
 
 # Assign a random order to the participant list. Image assignment:
 #   Each person will be assigned an image supplied by the next person. 
 #   If the next person did not supply an image, they will receive an unassigned image from someone who submitted more than one
 #     If there are no extra images, they'll receive a randomly assigned image
 
+# todo - this only works if everyone submits; instead assign 
+# to the submitters first so you aren't interleaving people w/o submissions
+brunch_participants$random <- sample(1:nrow(brunch_participants), nrow(brunch_participants), replace = F)
+brunch_participants <- brunch_participants[order(brunch_participants$random),]
 
-
+#Choose the 
+brunch_participants[2,'assigned_from'] <- brunch_participants[nrow(brunch_participants),'participants']
+for (i in 2:nrow(brunch_participants)) {
+  brunch_participants[i,'assigned_from'] <- brunch_participants[(i-1),'participants']
+}
+  
 # TODO for each person participating, send an email with their assigned photo, 
 # and a link to submit their final images.
 

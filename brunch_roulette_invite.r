@@ -37,7 +37,7 @@ gm_auth()
       event_month <- event_timestamp %>% as_datetime() %>% day()
       event_time <- event_timestamp %>% as_datetime() # %>% hms()
       
-      '2022-05-01 10:00:00' %>% as_datetime()
+      # '2022-05-01 10:00:00' %>% as_datetime()
     
     # google drive link associated with submitted images -- not necessary for invite but good to track here
     attachment_path_submissions <- "https://drive.google.com/drive/folders/0B75tBjB0bN9_fjJzQWdnU2Zqc0xTVVVKdUctRFJ3ZnhXLVpack9wQ3ppeEo3WUVib2YtT2s?resourcekey=0-wSTXVMTzQsDoNldCTvyg4A"

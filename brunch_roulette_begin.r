@@ -37,7 +37,7 @@ player_list <- unique(participants_uploaded$submission_email)
 # manually add any extras that are participating but didn't upload - last minute folks
 # added here as a list c("email3@gg","email4@gg")
 extra_participants <- c("jessie.mueller@gmail.com", "second@email")
-extra_participants <- c("") 
+# extra_participants <- c("") 
 
 # total set of participants: the people who have uploaded content and last minute adds
 # randomize the participants first, the others don't matter since they're not supplying content it'll be random anyway
@@ -59,16 +59,17 @@ brunch_participants$random <- sample(1:nrow(brunch_participants), nrow(brunch_pa
 brunch_participants <- brunch_participants[order(brunch_participants$random),]
 
 #Choose the 
-brunch_participants[2,'assigned_from'] <- brunch_participants[nrow(brunch_participants),'participants']
+brunch_participants[1,'assigned_from'] <- brunch_participants[nrow(brunch_participants),'participants']
 for (i in 2:nrow(brunch_participants)) {
   brunch_participants[i,'assigned_from'] <- brunch_participants[(i-1),'participants']
 }
   
 # TODO for each person participating, send an email with their assigned photo, 
 # and a link to submit their final images.
+# Add the variable references (sender and attachment link) 
 
-
-
+# attachments - download images into temp folder? 
+# look to see if you can insert an image object link instead
 
 #todo replace with date + format
 time_to_begin <- ''
@@ -83,15 +84,18 @@ gm_auth_configure(path="brunch_roulette_client.json")
 gm_auth()  
 
 #Individual email info:
-#host email info
+# this will be consistent across all emails
 email_source <- 'brunchroulette@gmail.com'
-email_target <- c('jessie.mueller@gmail.com', 
-                  'brunchroulette@gmail.com')
-brunch_category_name <- 'Pancake Masterpieces'
 attachment_path <- "test for now"
 form_link <- "https://docs.google.com/forms/d/e/1FAIpQLSd6LmltiGmarGKWztKRRSyH9lTCsnS5DLs1uagUkMvpJDjEKw/viewform?usp=sf_link"
-html_body <- paste("Game time! The theme for this round is \'Pancake Masterpieces\', 
-                   and your assigned submission is from <user>, and is attached to this email.  
+brunch_category_name <- 'Pancake Masterpieces'
+
+# this will change for each email
+email_target <- '' # TODO fix -- should be brunch_participants[i,1]
+image_contributor <- '' # TODO fix -- should be brunch_participants[i,3]
+
+html_body <- paste("Game time! The theme for this round is \'",brunch_category_name,"\', 
+                   and your assigned submission is from ",image_contributor,", and is attached to this email.  
                    You have one hour to complete your recipe, take a photo, and upload to this drive link. 
                    Rules: You can only use what is currently in your kitchen, and everything 
                    must be edible.  Good luck!")
